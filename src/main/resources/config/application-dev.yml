@@ -66,7 +66,7 @@ spring:
     username: abdellaoui.yahya01@gmail.com
     password: 83118910Pp
     protocol: smtp
-    authentication: true
+    tls: true
     properties.mail.smtp:
             auth: true
             starttls.enable: true
