@@ -10,35 +10,18 @@ const adminMenuItems = (
     <MenuItem icon="user" to="/admin/user-management">
       User management
     </MenuItem>
-    <MenuItem icon="tachometer-alt" to="/admin/metrics">
-      Metrics
+    <MenuItem icon="list" to="/entity/club">
+      Club
     </MenuItem>
-    <MenuItem icon="heart" to="/admin/health">
-      Health
-    </MenuItem>
-    <MenuItem icon="list" to="/admin/configuration">
-      Configuration
-    </MenuItem>
-    <MenuItem icon="bell" to="/admin/audits">
-      Audits
-    </MenuItem>
-    {/* jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here */}
-    <MenuItem icon="tasks" to="/admin/logs">
-      Logs
+    <MenuItem icon="tasks" to="/entity/categorie">
+      Categorie
     </MenuItem>
   </>
 );
-
-const swaggerItem = (
-  <MenuItem icon="book" to="/admin/docs">
-    API
-  </MenuItem>
-);
-
 export const AdminMenu = ({ showSwagger }) => (
   <NavDropdown icon="user-plus" name="Administration" style={{ width: '140%' }} id="admin-menu">
     {adminMenuItems}
-    {showSwagger && swaggerItem}
+    {showSwagger}
   </NavDropdown>
 );
 

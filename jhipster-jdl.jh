@@ -1,0 +1,82 @@
+entity Club {	
+    nom String required,
+    adresse String,
+    telephone String,
+    logo Blob,
+    email String required
+}
+
+entity Stade {
+	nom String required,
+    adresse String,
+    codePostal String,
+    ville String
+}
+entity Categorie {
+	section Section,
+    descrition String
+}
+enum Section {
+	U6, U7, U8, U9
+}
+
+entity Referent {
+	nom String required,
+    prenom String required,
+    licence String,
+    telephone String,
+    email String
+}
+
+entity Plateau {
+	dateDebut Instant required,
+    dateFin Instant required,    
+    nombreEquipeMax Integer required,
+    nombreEquipe Integer required,
+    statut Statut,
+    valid Boolean,
+    version Integer
+}
+
+entity DocumentPlateau {
+    programme Blob
+}
+
+enum Statut{
+	ENATTENTE,ENCOURS,COMPLET,CLOTURE
+}
+entity Inscription {
+    nombreEquipe Integer required,
+    preinscription Boolean
+}
+
+relationship OneToOne {
+    Plateau{documentPlateau} to DocumentPlateau{plateau},
+    Club{user} to User{club}
+}
+
+relationship OneToMany {
+	Plateau{inscription} to Inscription{plateau}
+}
+relationship ManyToMany {
+    Club{categorie(section)} to Categorie{club},
+    Referent{categorie(section)} to Categorie{referent}
+}
+
+relationship ManyToOne {
+    Plateau{referent(nom)} to Referent,
+    Plateau{user} to User,
+    Referent{user} to User,
+    Stade{user} to User,
+    Inscription{user(login)} to User,
+    Inscription{referent(nom)} to Referent,
+    Plateau{stade(nom)} to Stade,
+    Plateau{categorie(section)} to Categorie
+}
+
+paginate Plateau, Club, Stade with infinite-scroll
+paginate Plateau, Club, Stade, Referent with pagination
+
+filter Plateau, Referent
+
+service all with serviceImpl

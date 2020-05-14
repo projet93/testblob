@@ -40,7 +40,7 @@ export class SettingsPage extends React.Component<IUserSettingsProps, IUserSetti
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="settings-title">User settings for {account.login}</h2>
+            <h2 id="settings-title">Paramètres utilisateur pour {account.firstName}</h2>
             <AvForm id="settings-form" onValidSubmit={this.handleValidSubmit}>
               {/* First name */}
               <AvField
