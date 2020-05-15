@@ -65,9 +65,9 @@ spring:
     protocol: smtp
     tls: true
     properties.mail.smtp:
-            auth: true
-            starttls.enable: true
-            ssl.trust: smtp.gmail.com
+      auth: true
+      starttls.enable: true
+      ssl.trust: smtp.gmail.com
   thymeleaf:
     cache: true
 
@@ -113,7 +113,7 @@ jhipster:
       key: 73135f26205f71edb87f8dc8870f5866dcd94fd92c595bb6bea1f59909bba97cfc04484f910e1bc772874d2d6a5975f3e063
   mail: # specific JHipster mail property, for standard properties see MailProperties
     from: p93@localhost
-    base-url: http://my-server-url-to-change # Modify according to your server's URL
+    base-url: https://p-93.herokuapp.com # Modify according to your server's URL
   metrics:
     logs: # Reports metrics in the logs
       enabled: false
