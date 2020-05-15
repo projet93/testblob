@@ -10,7 +10,7 @@ import { getEntity } from './plateau.reducer';
 import { APP_DATE_FORMAT } from 'app/config/constants';
 import inscription from '../inscription/inscription';
 
-export interface IPlateauDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> { }
+export interface IPlateauDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export const PlateauDetail = (props: IPlateauDetailProps) => {
   useEffect(() => {
@@ -19,11 +19,10 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
   }, []);
 
   function activetedButton(inscriptionEntity) {
-    const loginValue = (inscriptionEntity.user) ? inscriptionEntity.user.login : null;
-    if (loginValue === localStorage.getItem('login'))
-      return true;
+    const loginValue = inscriptionEntity.user ? inscriptionEntity.user.login : null;
+    if (loginValue === localStorage.getItem('login')) return true;
     return false;
-  };
+  }
 
   const { plateauEntity, match } = props;
   localStorage.setItem('plateauId', '' + plateauEntity.id);
@@ -35,25 +34,19 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
         </h2>
         <dl className="row">
           <dt className="col-sm-5">
-            <span id="dateDebut">
-              Date Debut
-            </span>
+            <span id="dateDebut">Date Debut</span>
           </dt>
           <dd className="col-sm-7">
             <TextFormat value={plateauEntity.dateDebut} type="date" format={APP_DATE_FORMAT} />
           </dd>
           <dt className="col-sm-5">
-            <span id="dateFin">
-              Date Fin
-            </span>
+            <span id="dateFin">Date Fin</span>
           </dt>
           <dd className="col-sm-7">
             <TextFormat value={plateauEntity.dateFin} type="date" format={APP_DATE_FORMAT} />
           </dd>
           <dt className="col-sm-5">
-            <span id="programme">
-              Programme
-            </span>
+            <span id="programme">Programme</span>
           </dt>
           <dd className="col-sm-7">
             {plateauEntity.documentPlateau ? (
@@ -68,79 +61,51 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
             ) : null}
           </dd>
           <dt className="col-sm-5">
-            <span id="nombreEquipeMax">
-              Nombre Equipe Max
-            </span>
+            <span id="nombreEquipeMax">Nombre Equipe Max</span>
           </dt>
           <dd className="col-sm-7">{plateauEntity.nombreEquipeMax}</dd>
           <dt className="col-sm-5">
-            <span id="nombreEquipe">
-              Nombre Participant
-            </span>
+            <span id="nombreEquipe">Nombre Participant</span>
           </dt>
           <dd className="col-sm-7">{plateauEntity.nombreEquipe}</dd>
 
-
-
-          <dt className="col-sm-5">
-            Referent
-          </dt>
+          <dt className="col-sm-5">Referent</dt>
           <dd className="col-sm-7">{plateauEntity.referent ? plateauEntity.referent.nom : ''}</dd>
-          <dt className="col-sm-5">
-            Club
-          </dt>
+          <dt className="col-sm-5">Club</dt>
           <dd className="col-sm-7">{plateauEntity.user ? plateauEntity.user.firstName + ' [' + plateauEntity.user.login + ']' : ''}</dd>
-          <dt className="col-sm-5">
-            Stade
-          </dt>
+          <dt className="col-sm-5">Stade</dt>
           <dd className="col-sm-7">{plateauEntity.stade ? plateauEntity.stade.nom : ''}</dd>
-          <dt className="col-sm-5">
-            Categorie
-          </dt>
+          <dt className="col-sm-5">Categorie</dt>
           <dd className="col-sm-7">{plateauEntity.categorie ? plateauEntity.categorie.section : ''}</dd>
         </dl>
         <Button tag={Link} to="/entity/plateau" replace color="info">
-          <FontAwesomeIcon icon="arrow-left" />{' '}
-          <span className="d-none d-md-inline">
-            Back
-          </span>
+          <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
         <Button tag={Link} to={`/entity/plateau/${plateauEntity.id}/edit`} replace color="primary">
-          <FontAwesomeIcon icon="pencil-alt" />{' '}
-          <span className="d-none d-md-inline">
-            Edit
-          </span>
+          <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
         </Button>
       </Col>
       <Col md="8">
         <div>
           <h2 id="plateau-heading">
             Inscriptions
-        {plateauEntity.user && plateauEntity.user.login !== localStorage.getItem('login') ? null :
+            {plateauEntity.user && plateauEntity.user.login !== localStorage.getItem('login') ? null : (
               <Link to={`/entity/inscription/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
                 <FontAwesomeIcon icon="plus" />
-          &nbsp; Pre-Inscription
-        </Link>
-            }
+                &nbsp; Pre-Inscription
+              </Link>
+            )}
           </h2>
           <div className="table-responsive">
             {plateauEntity.inscriptions && plateauEntity.inscriptions.length > 0 ? (
               <Table responsive>
                 <thead>
                   <tr>
-                    <th>
-                      Club
-                    </th>
-                    <th>
-                      Referent
-                    </th>
-                    <th className="text-center">
-                      Nombre Equipe
-                    </th>
-                    <th>
-                      Statut
-                    </th>
+                    <th>Club</th>
+                    <th>Referent</th>
+                    <th className="text-center">Nombre Equipe</th>
+                    <th>Statut</th>
                     <th />
                   </tr>
                 </thead>
@@ -148,11 +113,17 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
                   {plateauEntity.inscriptions.map((inscription, i) => (
                     <tr key={`entity-${i}`}>
                       <td>{inscription.user ? <Link to={`club/${inscription.user.id}`}>{inscription.user.firstName}</Link> : ''}</td>
-                      <td>{inscription.referent ? <Link to={`entity/referent/${inscription.referent.id}`}>{inscription.referent.nom}</Link> : ''}</td>
+                      <td>
+                        {inscription.referent ? (
+                          <Link to={`entity/referent/${inscription.referent.id}`}>{inscription.referent.nom}</Link>
+                        ) : (
+                          ''
+                        )}
+                      </td>
                       <td className="text-center">{inscription.nombreEquipe}</td>
-                      <td>{inscription.preinscription ? 'inscrit' : 'pré-inscrit'}</td>
+                      <td>{inscription.preinscription ? 'pré-inscrit' : 'inscrit'}</td>
                       <td className="text-right">
-                        {activetedButton(inscription) &&
+                        {activetedButton(inscription) && (
                           <div className="btn-group flex-btn-group-container">
                             <Button tag={Link} to={`${match.url}/${inscription.id}`} color="info" size="sm">
                               <FontAwesomeIcon icon="eye" />
@@ -162,21 +133,17 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
                             </Button>
                             <Button tag={Link} to={`/entity/inscription/${inscription.id}/delete`} color="danger" size="sm">
                               <FontAwesomeIcon icon="trash" />
-
                             </Button>
                           </div>
-                        }
+                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
             ) : (
-
-                <div className="alert alert-warning">
-                  No Inscriptions found
-                </div>
-              )}
+              <div className="alert alert-warning">No Inscriptions found</div>
+            )}
           </div>
         </div>
       </Col>
@@ -185,7 +152,7 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
 };
 
 const mapStateToProps = ({ plateau }: IRootState) => ({
-  plateauEntity: plateau.entity,
+  plateauEntity: plateau.entity
 });
 
 const mapDispatchToProps = { getEntity };
@@ -193,4 +160,7 @@ const mapDispatchToProps = { getEntity };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(PlateauDetail);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlateauDetail);

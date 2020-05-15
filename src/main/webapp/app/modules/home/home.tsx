@@ -18,15 +18,15 @@ export class Home extends React.Component<IHomeProp> {
 
   render() {
     const { account } = this.props;
+    window.console.log('login', account.login);
     localStorage.setItem('login', account.login);
     return (
       <Row>
         <Col md="9">
-          
           {account && account.login ? (
             <div>
               <h2>Bienvenue, {account.firstName}!</h2>
-             <p className="lead">This is your homepage</p>
+              <p className="lead">This is your homepage</p>
               <Alert color="success">You are logged in as user {account.login}.</Alert>
             </div>
           ) : (
@@ -41,11 +41,8 @@ export class Home extends React.Component<IHomeProp> {
                 <br />- Administrator (login=&quot;admin&quot; and password=&quot;admin&quot;)
                 <br />- User (login=&quot;user&quot; and password=&quot;user&quot;).
               </Alert>
-
-              
             </div>
           )}
-         
         </Col>
         <Col md="3" className="pad">
           <span className="hipster rounded" />

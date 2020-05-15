@@ -11,13 +11,13 @@ import { APP_DATE_FORMAT } from 'app/config/constants';
 import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Switch } from '@material-ui/core';
-export interface IPlateauProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> { }
+export interface IPlateauProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
 export const Plateau = (props: IPlateauProps) => {
   const [paginationState, setPaginationState] = useState(getSortState(props.location, ITEMS_PER_PAGE));
 
   const getAllEntities = () => {
-    localStorage.setItem('plus','');
+    localStorage.setItem('plus', '');
     props.getEntities(paginationState.activePage - 1, paginationState.itemsPerPage, `${paginationState.sort},${paginationState.order}`);
   };
 
@@ -52,43 +52,42 @@ export const Plateau = (props: IPlateauProps) => {
     });
 
   const { plateauList, match, loading, totalItems } = props;
-  const isAdmin: boolean = (localStorage.getItem('isAdmin') === 'true');
+  const isAdmin: boolean = localStorage.getItem('isAdmin') === 'true';
   const login: string = localStorage.getItem('login');
   const inscription = plateauEntity => () => {
     localStorage.setItem('plateauId', plateauEntity.id);
     props.history.push('/entity/inscription/new');
-  }
+  };
   function isInscription(plateauEntity) {
     let result = true;
+    window.console.log(login, plateauEntity.user.login);
     if (isAdmin || login === plateauEntity.user.login || plateauEntity.statut === 'COMPLET') {
-       return false;
-    }
-    else {  
+      return false;
+    } else {
       if (plateauEntity.inscriptions) {
-        plateauEntity.inscriptions.find(function (value) {
+        plateauEntity.inscriptions.find(function(value) {
           const loginValue = value.user.login;
           if (plateauEntity.id === value.plateau.id && loginValue === login) {
-            result =  false;
+            result = false;
           }
         });
       }
     }
-    localStorage.setItem('plus','');
+    localStorage.setItem('plus', '');
     return result;
-  };
+  }
   return (
     <div>
-      
       <h2 id="plateau-heading">
         Liste des Plateaux
-        {isAdmin? null :
-        <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-          <FontAwesomeIcon icon="plus" />
-          &nbsp; Create new Plateau
-        </Link>
-        }
+        {isAdmin ? null : (
+          <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
+            <FontAwesomeIcon icon="plus" />
+            &nbsp; Create new Plateau
+          </Link>
+        )}
       </h2>
-      
+
       <div className="table-responsive">
         {plateauList && plateauList.length > 0 ? (
           <Table responsive>
@@ -103,10 +102,8 @@ export const Plateau = (props: IPlateauProps) => {
                 <th className="hand" onClick={sort('user.firstName')}>
                   Organisateur <FontAwesomeIcon icon="sort" />
                 </th>
-                <th className="hand">
-                  Lieu
-                </th>
-                <th className="hand text-center"  onClick={sort('categorie')}>
+                <th className="hand">Lieu</th>
+                <th className="hand text-center" onClick={sort('categorie')}>
                   Categorie <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={sort('statut')}>
@@ -117,7 +114,7 @@ export const Plateau = (props: IPlateauProps) => {
                 </th>
                 <th className="hand text-center" onClick={sort('nombreEquipe')}>
                   Nbr Participant <FontAwesomeIcon icon="sort" />
-                </th>               
+                </th>
                 <th />
               </tr>
             </thead>
@@ -129,55 +126,62 @@ export const Plateau = (props: IPlateauProps) => {
                       {plateau.id}
                     </Button>
                   </td>
-                 
+
                   <td>
                     <TextFormat type="date" value={plateau.dateDebut} format={APP_DATE_FORMAT} />
                   </td>
                   <td className="text-left">{plateau.user.firstName}</td>
-                  <td className="text-left">{plateau.stade.nom} [{plateau.stade.adresse}]</td>
-                  <td className="text-center">{plateau.categorie ? <Link to={`categorie/${plateau.categorie.id}`}>{plateau.categorie.section}</Link> : ''}</td>
+                  <td className="text-left">
+                    {plateau.stade.nom} [{plateau.stade.adresse}]
+                  </td>
+                  <td className="text-center">
+                    {plateau.categorie ? <Link to={`categorie/${plateau.categorie.id}`}>{plateau.categorie.section}</Link> : ''}
+                  </td>
                   <td>{plateau.statut}</td>
                   <td className="text-center">{plateau.nombreEquipeMax}</td>
                   <td className="text-center">{plateau.nombreEquipe}</td>
                   <td className="text-right">
                     <div className="btn-group flex-btn-group-container">
-                      {!isAdmin && login === plateau.user.login &&
+                      {!isAdmin && login === plateau.user.login && (
                         <Button tag={Link} to={`${match.url}/${plateau.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />
-                        </Button>}
-                      {!isAdmin && login === plateau.user.login &&
+                        </Button>
+                      )}
+                      {!isAdmin && login === plateau.user.login && (
                         <Button
                           tag={Link}
-                          to={`${match.url}/${plateau.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                          to={`${match.url}/${plateau.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${
+                            paginationState.order
+                          }`}
                           color="primary"
-                          size="sm">
+                          size="sm"
+                        >
                           <FontAwesomeIcon icon="pencil-alt" />
                         </Button>
-                      }
-                      {!isAdmin && login !== plateau.user.login &&
+                      )}
+                      {!isAdmin && login !== plateau.user.login && (
                         <Button tag={Link} to={`${match.url}/${plateau.id}`} color="info" size="sm">
                           <FontAwesomeIcon icon="eye" />
                         </Button>
-                      }
-                      {isInscription(plateau) &&
-                        <Button
-                          tag={Link}
-                          onClick={inscription(plateau)}
-                          color="primary"
-                          size="sm">
+                      )}
+                      {isInscription(plateau) && (
+                        <Button tag={Link} onClick={inscription(plateau)} color="primary" size="sm">
                           <FontAwesomeIcon icon="plus" />
                         </Button>
-                      }
+                      )}
 
-                      {!isAdmin && login === plateau.user.login &&
+                      {!isAdmin && login === plateau.user.login && (
                         <Button
                           tag={Link}
-                          to={`${match.url}/${plateau.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                          to={`${match.url}/${plateau.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${
+                            paginationState.order
+                          }`}
                           color="danger"
-                          size="sm">
+                          size="sm"
+                        >
                           <FontAwesomeIcon icon="trash" />
                         </Button>
-                      }
+                      )}
 
                       {isAdmin && (
                         <FormControlLabel
@@ -185,7 +189,6 @@ export const Plateau = (props: IPlateauProps) => {
                           label="Valide"
                         />
                       )}
-
                     </div>
                   </td>
                 </tr>
@@ -193,8 +196,8 @@ export const Plateau = (props: IPlateauProps) => {
             </tbody>
           </Table>
         ) : (
-            !loading && <div className="alert alert-warning">No Plateaus found</div>
-          )}
+          !loading && <div className="alert alert-warning">No Plateaus found</div>
+        )}
       </div>
       <div className={plateauList && plateauList.length > 0 ? '' : 'd-none'}>
         <Row className="justify-content-center">
@@ -228,4 +231,7 @@ const mapDispatchToProps = {
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Plateau);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Plateau);

@@ -69,7 +69,10 @@ public class InscriptionServiceImpl implements InscriptionService {
 			plateau.setStatut(Statut.COMPLET);
 		plateau.setNombreEquipe(nbrParticipant + inscription.getNombreEquipe());
 		inscription.setPlateau(plateau);
-//		plateau.addInscription(inscription);
+		if(inscription.getReferent() == null)
+			inscription.setPreinscription(true);
+		else
+			inscription.setPreinscription(false);
 		plateauRepository.save(plateau);
 //		inscription.setPlateau(plateau);
 //		inscription.setClub(clubRepository.findClubByUserIsCurrentUser().get());
@@ -104,6 +107,10 @@ public class InscriptionServiceImpl implements InscriptionService {
         	plateau.setStatut(Statut.ENCOURS);
         plateau.setNombreEquipe(nbrParticipant);
         plateauRepository.save(plateau);
+        if(inscription.getReferent() == null)
+			inscription.setPreinscription(true);
+		else
+			inscription.setPreinscription(false);
         inscription.setPlateau(plateau);
         Inscription result = inscriptionRepository.save(inscription);
         return result;
