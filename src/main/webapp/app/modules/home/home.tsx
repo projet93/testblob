@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
-
+import { Translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
+import GoogleMapReact from 'google-map-react';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -23,11 +24,20 @@ export class Home extends React.Component<IHomeProp> {
     return (
       <Row>
         <Col md="9">
+          <div style={{ height: '75vh', width: '100%' }}>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: 'AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs', language: 'fr' }}
+              defaultCenter={{ lat: 48.93, lng: 2.4 }}
+              defaultZoom={12}
+            />
+          </div>
           {account && account.login ? (
             <div>
-              <h2>Bienvenue, {account.firstName}!</h2>
-              <p className="lead">This is your homepage</p>
-              <Alert color="success">You are logged in as user {account.login}.</Alert>
+              <Alert color="success">
+                <Translate contentKey="home.logged.message" interpolate={{ username: account.login }}>
+                  You are logged in as user {account.login}.
+                </Translate>
+              </Alert>
             </div>
           ) : (
             <div>
