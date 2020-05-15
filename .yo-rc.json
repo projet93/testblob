@@ -31,6 +31,8 @@
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
-    "enableTranslation": false
+    "enableTranslation": false,
+    "herokuAppName": "p-93",
+    "herokuDeployType": "git"
   }
 }
