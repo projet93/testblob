@@ -159,8 +159,7 @@ export class InscriptionUpdate extends React.Component<IInscriptionUpdateProps, 
                         </AvInput>
                       </AvGroup>) :
                       null}
-
-                  <Button tag={Link} id="cancel-save" to="/entity/plateau" replace color="info">
+                  <Button tag={Link} id="cancel-save" to={"/entity/plateau/"+localStorage.getItem('plateauId')} replace color="info">
                     <FontAwesomeIcon icon="arrow-left" />
                   &nbsp;
                   <span className="d-none d-md-inline">Back</span>

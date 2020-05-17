@@ -60,7 +60,6 @@ export const Plateau = (props: IPlateauProps) => {
   };
   function isInscription(plateauEntity) {
     let result = true;
-    window.console.log(login, plateauEntity.user.login);
     if (isAdmin || login === plateauEntity.user.login || plateauEntity.statut === 'COMPLET') {
       return false;
     } else {

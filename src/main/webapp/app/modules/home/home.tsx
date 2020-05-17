@@ -19,7 +19,6 @@ export class Home extends React.Component<IHomeProp> {
 
   render() {
     const { account } = this.props;
-    window.console.log('login', account.login);
     localStorage.setItem('login', account.login);
     return (
       <Row>

@@ -27,7 +27,7 @@ public interface PlateauRepository extends JpaRepository<Plateau, Long>, JpaSpec
     @Query("select distinct plateau from Plateau plateau left join fetch plateau.user")
     List<Plateau> findAllWithEagerRelationships();
     //select plateau from Plateau plateau left join fetch plateau.stade join fetch plateau.referent join fetch plateau.categorie join fetch plateau.inscriptions where plateau.id =:id
-    @Query("select plateau from Plateau plateau left join fetch plateau.stade left join fetch plateau.referent left join fetch plateau.categorie left join fetch plateau.inscriptions where plateau.id =:id")
+    @Query("select plateau from Plateau plateau left join fetch plateau.user left join fetch plateau.stade left join fetch plateau.referent left join fetch plateau.categorie left join fetch plateau.inscriptions where plateau.id =:id")
     Optional<Plateau> findOneWithEagerRelationships(@Param("id") Long id);
 
     @Query("select plateau from Plateau plateau where plateau.valid = true or plateau.user.login = ?#{principal.username}")
