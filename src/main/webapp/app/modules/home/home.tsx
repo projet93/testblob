@@ -23,13 +23,7 @@ export class Home extends React.Component<IHomeProp> {
     return (
       <Row>
         <Col md="9">
-          <div style={{ height: '75vh', width: '100%' }}>
-            <GoogleMapReact
-              bootstrapURLKeys={{ key: 'AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs', language: 'fr' }}
-              defaultCenter={{ lat: 48.93, lng: 2.4 }}
-              defaultZoom={12}
-            />
-          </div>
+          <div style={{ height: '75vh', width: '100%' }} />
           {account && account.login ? (
             <div>
               <Alert color="success">
