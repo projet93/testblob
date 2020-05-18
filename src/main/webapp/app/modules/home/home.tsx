@@ -9,7 +9,8 @@ import { Translate } from 'react-jhipster';
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
 import GoogleMapReact from 'google-map-react';
-
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { compose, withProps } from 'recompose';
 export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class Home extends React.Component<IHomeProp> {
@@ -18,12 +19,29 @@ export class Home extends React.Component<IHomeProp> {
   }
 
   render() {
+    const MyMapComponent = compose(
+      withProps({
+        googleMapURL:
+          'https://maps.googleapis.com/maps/api/js?key=AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs&v=3.exp&libraries=geometry,drawing,places',
+        loadingElement: <div style={{ height: `75vh` }} />,
+        containerElement: <div style={{ height: `100%` }} />,
+        mapElement: <div style={{ height: `75vh` }} />
+      }),
+      withScriptjs,
+      withGoogleMap
+    )(props => (
+      <GoogleMap defaultZoom={12} defaultCenter={{ lat: 48.93, lng: 2.4 }}>
+        {props.isMarkerShown && <Marker position={{ lat: 48.93, lng: 2.4 }} />}
+      </GoogleMap>
+    ));
     const { account } = this.props;
     localStorage.setItem('login', account.login);
     return (
       <Row>
         <Col md="9">
-          <div style={{ height: '75vh', width: '100%' }} />
+          <div style={{ height: '75vh', width: '100%' }}>
+            <MyMapComponent isMarkerShown />
+          </div>
           {account && account.login ? (
             <div>
               <Alert color="success">
