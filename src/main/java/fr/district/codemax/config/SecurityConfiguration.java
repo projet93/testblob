@@ -103,7 +103,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .permitAll()
         .and()
             .headers()
-            .contentSecurityPolicy("default-src 'self'; script-src 'self' https://maps.googleapis.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' https://maps.googleapis.com data:")
+            .contentSecurityPolicy("default-src 'self'; script-src 'self' https://maps.googleapis.com 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://maps.googleapis.com 'unsafe-inline'; img-src 'self' https://maps.googleapis.com data:")
         .and()
             .referrerPolicy(ReferrerPolicyHeaderWriter.ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN)
         .and()
