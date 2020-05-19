@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { Translate } from 'react-jhipster';
-import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import GoogleMapReact from 'google-map-react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { compose, withProps } from 'recompose';
 export interface IHomeProp extends StateProps, DispatchProps {}
@@ -16,8 +14,17 @@ export interface IHomeProp extends StateProps, DispatchProps {}
 export class Home extends React.Component<IHomeProp> {
   componentDidMount() {
     this.props.getSession();
+    this.delayedShowMarker();
   }
-
+  delayedShowMarker = () => {
+    setTimeout(() => {
+      this.setState({ isMarkerShown: true });
+    }, 3000);
+  };
+  handleMarkerClick = () => {
+    this.setState({ isMarkerShown: false });
+    this.delayedShowMarker();
+  };
   render() {
     const MyMapComponent = compose(
       withProps({
@@ -31,16 +38,17 @@ export class Home extends React.Component<IHomeProp> {
       withGoogleMap
     )(props => (
       <GoogleMap defaultZoom={12} defaultCenter={{ lat: 48.93, lng: 2.4 }}>
-        {props.isMarkerShown && <Marker position={{ lat: 48.93, lng: 2.4 }} />}
+        {props.isMarkerShown && <Marker position={{ lat: 48.93, lng: 2.4 }} onClick={props.onMarkerClick} />}
       </GoogleMap>
     ));
+
     const { account } = this.props;
     localStorage.setItem('login', account.login);
     return (
       <Row>
         <Col md="9">
           <div style={{ height: '75vh', width: '100%' }}>
-            <MyMapComponent isMarkerShown />
+            <MyMapComponent isMarkerShown onMarkerClick={this.handleMarkerClick} />
           </div>
           {account && account.login ? (
             <div>

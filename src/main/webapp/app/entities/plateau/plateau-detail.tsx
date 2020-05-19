@@ -82,7 +82,7 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
         </Button>
         &nbsp;
-        {localStorage.getItem('login') === plateauEntity.user.login ? (
+        {plateauEntity.user && localStorage.getItem('login') === plateauEntity.user.login ? (
           <Button tag={Link} to={`/entity/plateau/${plateauEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" /> <span className="d-none d-md-inline">Edit</span>
           </Button>
