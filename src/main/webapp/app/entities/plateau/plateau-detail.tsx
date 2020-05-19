@@ -127,9 +127,6 @@ export const PlateauDetail = (props: IPlateauDetailProps) => {
                       <td className="text-right">
                         {activetedButton(inscription) && (
                           <div className="btn-group flex-btn-group-container">
-                            <Button tag={Link} to={`${match.url}/${inscription.id}`} color="info" size="sm">
-                              <FontAwesomeIcon icon="eye" />
-                            </Button>
                             <Button tag={Link} to={`/entity/inscription/${inscription.id}/edit`} color="primary" size="sm">
                               <FontAwesomeIcon icon="pencil-alt" />
                             </Button>

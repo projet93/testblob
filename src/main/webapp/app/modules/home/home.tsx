@@ -7,11 +7,21 @@ import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 import { Translate } from 'react-jhipster';
 import { getSession } from 'app/shared/reducers/authentication';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 import { compose, withProps } from 'recompose';
 export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class Home extends React.Component<IHomeProp> {
+  state = {
+    stores: [
+      { latitude: 48.9391, longitude: 2.48214, title: 'FC AULNAY' },
+      { latitude: 48.9365, longitude: 2.4159, title: 'FC AULNAY' },
+      { latitude: 48.92369, longitude: 2.42369, title: 'FC AULNAY' },
+      { latitude: 48.9299, longitude: 2.306, title: 'FC AULNAY' },
+      { latitude: 48.9309, longitude: 2.3996, title: 'FC AULNAY' },
+      { latitude: 48.9378, longitude: 2.3896, title: 'FC AULNAY' }
+    ]
+  };
   componentDidMount() {
     this.props.getSession();
     this.delayedShowMarker();
@@ -24,6 +34,26 @@ export class Home extends React.Component<IHomeProp> {
   handleMarkerClick = () => {
     this.setState({ isMarkerShown: false });
     this.delayedShowMarker();
+  };
+  displayMarkers = () => {
+    return this.state.stores.map((store, index) => {
+      return (
+        <Marker
+          key={index}
+          position={{
+            lat: Number(store.latitude),
+            lng: Number(store.longitude)
+          }}
+          onClick={() => console.log('You clicked me!')}
+        >
+          <InfoWindow>
+            <div>
+              <span>{store.title}</span>
+            </div>
+          </InfoWindow>
+        </Marker>
+      );
+    });
   };
   render() {
     const MyMapComponent = compose(
@@ -39,6 +69,7 @@ export class Home extends React.Component<IHomeProp> {
     )(props => (
       <GoogleMap defaultZoom={12} defaultCenter={{ lat: 48.93, lng: 2.4 }}>
         {props.isMarkerShown && <Marker position={{ lat: 48.93, lng: 2.4 }} onClick={props.onMarkerClick} />}
+        {this.displayMarkers()}
       </GoogleMap>
     ));
 
