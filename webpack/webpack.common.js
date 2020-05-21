@@ -54,7 +54,7 @@ module.exports = options => ({
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.(tsx|ts|js)$/,
         use: getTsLoaderRule(options.env),
         include: [utils.root('./src/main/webapp/app')],
         exclude: [utils.root('node_modules')]
@@ -74,7 +74,7 @@ module.exports = options => ({
         loader: 'source-map-loader'
       },
       {
-        test: /\.tsx?$/,
+        test: /\.(tsx|ts|js)$/,
         enforce: 'pre',
         loader: 'tslint-loader',
         exclude: [utils.root('node_modules')]
