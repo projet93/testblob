@@ -10,41 +10,8 @@ export const MapContainer = () => {
 
 
   const locations = [
-    {
-      name: "Location 1",
-      location: {
-        lat: parseFloat(50.6741186),
-        lng: parseFloat(3.1635339)
-      },
-    },
-    {
-      name: "Location 2",
-      location: {
-        lat: parseFloat(50.6841186),
-        lng: parseFloat(3.1735339)
-      },
-    },
-    {
-      name: "Location 3",
-      location: {
-        lat: parseFloat(50.8841186),
-        lng: parseFloat(3.2735339)
-      },
-    },
-    {
-      name: "Location 4",
-      location: {
-        lat: parseFloat(50.5841186),
-        lng: parseFloat(3.0035339)
-      },
-    },
-    {
-      name: "Location 5",
-      location: {
-        lat: parseFloat(50.6841186),
-        lng: parseFloat(3.0535339)
-      },
-    }
+   
+    
   ];
   const mapStyles = {
     height: "75vh",
