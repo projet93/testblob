@@ -55,8 +55,8 @@ export const MapContainer = () => {
 
   const success = position => {
     const currentPosition = {
-      lat: parseFloat(position.coords.latitude),
-      lng: parseFloat(position.coords.longitude)
+      lat: Number(position.coords.latitude),
+      lng: Number(position.coords.longitude)
     }
     window.console.log(currentPosition);
     setCurrentPosition(currentPosition);
