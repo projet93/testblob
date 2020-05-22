@@ -50,11 +50,11 @@ export const MapContainer = () => {
     height: "75vh",
     width: "100%"
   };
-  
+
   const onMarkerDragEnd = (e) => {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    setCurrentPosition({ lat, lng})
+    const lat = parseFloat(e.latLng.lat());
+    const lng = parseFloat(e.latLng.lng());
+    setCurrentPosition({ lat, lng })
   };
 
   const [currentPosition, setCurrentPosition] = useState({});
@@ -71,7 +71,7 @@ export const MapContainer = () => {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(success);
   })
-
+  
   return (
     <LoadScript
       googleMapsApiKey='AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs'>
@@ -83,8 +83,8 @@ export const MapContainer = () => {
           currentPosition.lat &&
           (
             <Marker position={currentPosition} />
-            )
-          }
+          )
+        }
         {
           locations.map(item => {
             return (
