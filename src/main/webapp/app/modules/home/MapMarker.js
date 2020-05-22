@@ -13,36 +13,36 @@ export const MapContainer = () => {
     {
       name: "Location 1",
       location: {
-        lat: 50.6741186,
-        lng: 3.1635339
+        lat: parseFloat(50.6741186),
+        lng: parseFloat(3.1635339)
       },
     },
     {
       name: "Location 2",
       location: {
-        lat: 50.6841186,
-        lng: 3.1735339
+        lat: parseFloat(50.6841186),
+        lng: parseFloat(3.1735339)
       },
     },
     {
       name: "Location 3",
       location: {
-        lat: 50.8841186,
-        lng: 3.2735339
+        lat: parseFloat(50.8841186),
+        lng: parseFloat(3.2735339)
       },
     },
     {
       name: "Location 4",
       location: {
-        lat: 50.5841186,
-        lng: 3.0035339
+        lat: parseFloat(50.5841186),
+        lng: parseFloat(3.0035339)
       },
     },
     {
       name: "Location 5",
       location: {
-        lat: 50.6841186,
-        lng: 3.0535339
+        lat: parseFloat(50.6841186),
+        lng: parseFloat(3.0535339)
       },
     }
   ];
