@@ -51,12 +51,6 @@ export const MapContainer = () => {
     width: "100%"
   };
 
-  const onMarkerDragEnd = (e) => {
-    const lat = parseFloat(e.latLng.lat());
-    const lng = parseFloat(e.latLng.lng());
-    setCurrentPosition({ lat, lng })
-  };
-
   const [currentPosition, setCurrentPosition] = useState({});
 
   const success = position => {
