@@ -24,18 +24,17 @@ export const MapContainer = () => {
     const currentPosition = {
       lat: Number(position.coords.latitude),
       lng: Number(position.coords.longitude)
-    }
-    window.console.log(currentPosition);
+    }    
     setCurrentPosition(currentPosition);
   };
 
   useEffect(() => {
+    window.console.log(currentPosition);
     navigator.geolocation.getCurrentPosition(success);
   })
   
   return (
-    <LoadScript
-      googleMapsApiKey='AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs'>
+    <LoadScript  googleMapsApiKey='AIzaSyDj-zgI5H5vSaR9NbLwk7BxCyPiCz3cCTs'>
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={11}
